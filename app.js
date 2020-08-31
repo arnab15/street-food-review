@@ -9,7 +9,7 @@ const User = require('./models/user');
 const campgroundRoutes = require('./routes/campground');
 const commentRoutes = require('./routes/comments');
 const indexRoutes = require('./routes/index');
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 const databaseConnection =
   process.env.MONGO_URL || 'mongodb://localhost/yelp_camp';
 // const seedDb = require('./seeds');
