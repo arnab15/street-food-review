@@ -7,4 +7,18 @@
   </head>
   <body>
     <%- include('./navbar') %>
+    <% if(error&& error.length>0){ %> 
+    <div class="container">
+      <div class="text-center alert alert-danger" role="alert">
+        <%= error  %>
+      </div>
+    </div>
+  <% } %> 
+  <% if(success&&success.length>0){ %> 
+    <div class="container">
+      <div class="text-center alert alert-success" role="alert">
+        <%= success  %>
+      </div>
+    </div>
+  <% } %> 
 </html>

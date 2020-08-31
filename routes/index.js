@@ -17,13 +17,13 @@ router.post('/register', (req, res) => {
   User.register(newUser, req.body.password)
     .then((user) => {
       passport.authenticate('local')(req, res, function () {
+        req.flash('success', 'Welcome to Yelp Camp ' + user.username);
         res.redirect('/campgrounds');
       });
-      console.log(user);
     })
     .catch((err) => {
-      console.log(err);
-      res.render('register');
+      req.flash('error', err.message);
+      res.redirect('/register');
     });
 });
 //show login form
@@ -36,13 +36,12 @@ router.post(
     successRedirect: '/campgrounds',
     failureRedirect: '/login',
   }),
-  (req, res) => {
-    res.send('login sucessfull');
-  }
+  (req, res) => {}
 );
 //add logout route
 router.get('/logout', (req, res) => {
   req.logOut();
+  req.flash('success', 'Logged you out!');
   res.redirect('/campgrounds');
 });
 

@@ -31,7 +31,7 @@ router.post('/', middlewre.isLogedIn, (req, res) => {
   Campground.create(newCampground)
     .then((c) => {
       //redirect back to campground
-      console.log('Current camp : ' + c);
+      req.flash('success', 'New Campground Created');
       res.redirect('/campgrounds');
     })
     .catch((err) => {

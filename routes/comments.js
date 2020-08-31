@@ -27,11 +27,12 @@ router.post('/', middlewre.isLogedIn, (req, res) => {
         campground.comments.push(comment);
         campground.save();
         console.log(comment);
+        req.flash('success', 'Comment successfully added');
         res.redirect(`/campgrounds/${campground._id}`);
       });
     })
     .catch((err) => {
-      console.log(err);
+      req.flash('error', 'Something Went Wrong');
       res.redirect('/campground');
     });
   //create new comment
@@ -51,6 +52,7 @@ router.get('/:comment_id/edit', middlewre.checkCommentOwnership, (req, res) => {
 router.patch('/:comment_id', middlewre.checkCommentOwnership, (req, res) => {
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment)
     .then(() => {
+      req.flash('success', 'Comment Updated');
       res.redirect(`/campgrounds/${req.params.id}`);
     })
     .catch(() => {
@@ -62,6 +64,8 @@ router.delete('/:comment_id', middlewre.checkCommentOwnership, (req, res) => {
   comment
     .findByIdAndRemove(req.params.comment_id)
     .then(() => {
+      req.flash('success', 'Comment Deleted');
+
       res.redirect(`/campgrounds/${req.params.id}`);
     })
     .catch(() => {
