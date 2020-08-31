@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     });
 });
 //CREAT add new campground to db
-router.post('/', (req, res) => {
+router.post('/', isLogedIn, (req, res) => {
   //get data from form add to campground array
   const { name, image, description } = req.body;
   const newCampground = { name, image, description };
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     });
 });
 //NEW Display form to make a new dog
-router.get('/new', (req, res) => {
+router.get('/new', isLogedIn, (req, res) => {
   res.render('campgrounds/new');
 });
 //Show an indivisual campground with more info
@@ -50,5 +50,10 @@ router.get('/:id', (req, res) => {
     });
   //render show template with that campground
 });
-
+function isLogedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 module.exports = router;
