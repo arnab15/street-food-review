@@ -9,10 +9,12 @@ const User = require('./models/user');
 const campgroundRoutes = require('./routes/campground');
 const commentRoutes = require('./routes/comments');
 const indexRoutes = require('./routes/index');
+const PORT = process.env.port || 3000;
+const databaseConnection =
+  process.env.MONGO_URL || 'mongodb://localhost/yelp_camp';
+// const seedDb = require('./seeds');
 
-const seedDb = require('./seeds');
-
-mongoose.connect('mongodb://localhost/yelp_camp', {
+mongoose.connect(databaseConnection, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
@@ -46,6 +48,6 @@ app.use((req, res, next) => {
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/', indexRoutes);
-app.listen(3000, () => {
-  console.log('app is running on port 3000');
+app.listen(PORT, () => {
+  console.log('app is running on port' + PORT);
 });
