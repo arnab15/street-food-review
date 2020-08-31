@@ -7,3 +7,6 @@
 .img-thumbnail .caption-full {
   padding: 15px;
 }
+#deleteForm {
+  display: inline;
+}

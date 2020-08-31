@@ -36,6 +36,9 @@ router.post('/', isLogedIn, (req, res) => {
   //connect new comment to campground
   //redirect campground show page
 });
+router.get('/:comment_id/edit', (req, res) => {
+  res.send('comment edit form');
+});
 function isLogedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
