@@ -31,7 +31,7 @@ router.post('/', middlewre.isLogedIn, (req, res) => {
   Campground.create(newCampground)
     .then((c) => {
       //redirect back to campground
-      req.flash('success', 'New Campground Created');
+      req.flash('success', 'New Food Created');
       res.redirect('/campgrounds');
     })
     .catch((err) => {
@@ -71,6 +71,8 @@ router.patch('/:id', middlewre.checkCampgroundOwnership, (req, res) => {
 
   Campground.findByIdAndUpdate(req.params.id, req.body.campground)
     .then((updateCamp) => {
+      req.flash('success', 'Selected Food Updated successfully');
+
       res.redirect('/campgrounds/' + req.params.id);
     })
     .catch(() => {
@@ -81,6 +83,8 @@ router.patch('/:id', middlewre.checkCampgroundOwnership, (req, res) => {
 router.delete('/:id', middlewre.checkCampgroundOwnership, (req, res) => {
   Campground.findByIdAndDelete(req.params.id)
     .then(() => {
+      req.flash('success', 'Selected Food deleted successfully');
+
       res.redirect('/campgrounds');
     })
     .catch(() => {
